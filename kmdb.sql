@@ -104,30 +104,86 @@
 DROP TABLE IF EXISTS actors;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS roles;
 
 -- Create new tables, according to your domain model
 -- TODO!
 CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  full_name TEXT
+  full_name TEXT,
+  movie_name TEXT,
+  character_name TEXT
 );
 CREATE TABLE roles (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  character_name TEXT
+  character_name TEXT,
+  movie_name TEXT,
+  full_name TEXT 
 );
 CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  movie_name TEXT
+  movie_name TEXT,
+  year_released TEXT,
+  rated TEXT,
+  studio_name TEXT
 );
 CREATE TABLE studios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  studio_name TEXT
+  studio_name TEXT,
+  movie_name TEXT
 );
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
-INSERT INTO movies (title, year_released, rated, studio_id)
-VALUES ("Batman Begins", 2005, "PG-13", 1);
+INSERT INTO movies (movie_name, year_released, rated, studio_name)
+VALUES ("Batman Begins", 2005, "PG-13", "Warner Bros");
+
+INSERT INTO movies (movie_name, year_released, rated, studio_name)
+VALUES ("The Dark Knight", 2008, "PG-13", "Warner Bros");
+
+INSERT INTO movies (movie_name, year_released, rated, studio_name)
+VALUES ("The Dark Knight Rises", 2012, "PG-13", "Warner Bros");
+
+INSERT INTO studios (studio_name)
+VALUES ("Warner Bros");
+
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Christian Bale", "Batman Begins", "Bruce Wayne");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Michael Caine", "Batman Begins", "Alfred");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Liam Neeson", "Batman Begins", "Ra's Al Ghul");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Katie Holmes", "Batman Begins", "Rachel Dawes");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Gary Oldman", "Batman Begins", "Commissioner Gordon");
+
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Christian Bale", "The Dark Knight", "Bruce Wayne");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Heath Ledger", "The Dark Knight", "The Joker");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Aaron Eckhart", "The Dark Knight", "Harvey Dent");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Michael Caine", "The Dark Knight", "Alfred");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Maggie Gyllenhall", "The Dark Knight", "Rachel Dawes");
+
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Christian Bale", "The Dark Knight Rises", "Bruce Wayne");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Gary Oldman", "The Dark Knight Rises", "Commissioner Gordon");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Tom Hardy", "The Dark Knight Rises", "Bane");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Joseph Gordon-Levitt", "The Dark Knight Rises", "John Blake");
+INSERT INTO actors (full_name, movie_name, character_name)
+VALUES ("Anne Hathaway", "The Dark Knight Rises", "Selena Kyle");
+
+INSERT INTO roles (full_name, movie_name, character_name)
+VALUES ("Christian Bale", "The Dark Knight Rises", "Bruce Wayne");
+-- etc
+
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
@@ -135,7 +191,7 @@ VALUES ("Batman Begins", 2005, "PG-13", 1);
 
 -- The SQL statement for the movies output
 -- TODO!
-
+Select movie_name, year_released, rated, studio_name from movies
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
@@ -145,3 +201,4 @@ VALUES ("Batman Begins", 2005, "PG-13", 1);
 
 -- The SQL statement for the cast output
 -- TODO!
+Select movie_name, full_name, character_name from roles
